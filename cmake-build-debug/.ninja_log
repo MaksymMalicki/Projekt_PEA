@@ -1,0 +1,7 @@
+# ninja log v5
+397	434	1668708288524354004	project1	2156c7c348cccc4b
+0	45	1672678960248580632	build.ninja	aeabd3f3645bbf39
+1	397	1668708288486222628	CMakeFiles/project1.dir/DynamicTSP.cpp.o	f5d284a9bda7c40c
+4	1953	1668705042026482326	CMakeFiles/project1.dir/TSP.cpp.o	e81edbf5c8bcbe3b
+1	365	1668708288454426877	CMakeFiles/project1.dir/main.cpp.o	c00bd7975a23c584
+4	1881	1668705041954570981	CMakeFiles/project1.dir/BruteForce.cpp.o	7eb8e693e21e4c5
