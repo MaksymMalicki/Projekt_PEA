@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/maksymmalicki/dev/studies/PEA/project1/cmake-build-debug",
-		"source" : "/Users/maksymmalicki/dev/studies/PEA/project1"
+		"build" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA/cmake-build-debug",
+		"source" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA"
 	},
 	"version" : 
 	{

@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "Debug"
+			"value" : "Release"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/maksymmalicki/dev/studies/PEA/project1/cmake-build-debug"
+			"value" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA/cmake-build-release"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/maksymmalicki/dev/studies/PEA/project1"
+			"value" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/maksymmalicki/dev/studies/PEA/project1/cmake-build-debug"
+			"value" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA/cmake-build-release"
 		},
 		{
 			"name" : "project1_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/maksymmalicki/dev/studies/PEA/project1"
+			"value" : "/Users/maksymmalicki/dev/studies/PEA/Project_PEA"
 		}
 	],
 	"kind" : "cache",

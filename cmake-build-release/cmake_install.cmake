@@ -1,4 +1,4 @@
-# Install script for directory: /Users/maksymmalicki/dev/studies/PEA/project1
+# Install script for directory: /Users/maksymmalicki/dev/studies/PEA/Project_PEA
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/maksymmalicki/dev/studies/PEA/project1/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/maksymmalicki/dev/studies/PEA/Project_PEA/cmake-build-release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
