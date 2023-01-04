@@ -103,21 +103,56 @@ void Genetic::solveTSPUsingGeneticAlgorithm() {
     cout<<endl<<endl;
 }
 
-void Genetic::orderCrossover(){
-
+bool isElementInVector(const vector<int>& v, int element){
+    for(int i : v){
+        if(i==element) return true;
+    }
+    return false;
 }
 
-void Genetic::partiallyMatchedCrossover(){
+vector<int> Genetic::orderCrossover(vector<int> firstParent, vector<int> secondParent) const{
+    int subsetStartIndex = rand()%(verticesNumber-1);
+    int subsetEndIndex = rand()%verticesNumber;
+    if(subsetStartIndex>subsetEndIndex) swap(subsetEndIndex, subsetStartIndex);
+    vector<int> child;
 
+    child.resize(firstParent.size(), -1);
+    for(int i=subsetStartIndex; i<subsetEndIndex+1; i++){
+        child[i] = firstParent[i];
+    }
+
+    for(int i=(subsetEndIndex+1)%verticesNumber; i<(subsetEndIndex+1)%verticesNumber+verticesNumber; i++){
+        int nextNumber = i;
+        if(!isElementInVector(child, -1)){
+            break;
+        }
+        while(isElementInVector(child, secondParent[nextNumber%verticesNumber])){
+            nextNumber++;
+        }
+        child[i%verticesNumber] = secondParent[nextNumber%verticesNumber];
+    }
+    return child;
 }
 
-void Genetic::inversionMutation(vector<int> &pathToMutate){
-
+void Genetic::inversionMutation(vector<int> &pathToMutate) const{
+    int subsetStartIndex = rand()%(verticesNumber-1);
+    int subsetEndIndex = rand()%verticesNumber;
+    if(subsetStartIndex>subsetEndIndex) swap(subsetEndIndex, subsetStartIndex);
+    reverse( pathToMutate.begin() + subsetStartIndex, pathToMutate.begin() + subsetEndIndex+1);
 }
 
-void Genetic::scrambleMutation(vector<int> &pathToMutate){
+void Genetic::scrambleMutation(vector<int> &pathToMutate) const{
     int k = rand()%verticesNumber;
+    vector<int> v;
     for(int i=0; i<k; i++){
-
+        int vertex = rand()%verticesNumber;
+        while(count(v.begin(), v.end(), vertex)!=0){
+            vertex = rand()%verticesNumber;
+        }
+        v.push_back(vertex);
+    }
+    for(int i=0; i<k; i++){
+        int randomIndexInV = rand()%v.size();
+        swap(pathToMutate[v[i]], pathToMutate[v[randomIndexInV]]);
     }
 }

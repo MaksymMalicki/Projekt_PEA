@@ -19,11 +19,9 @@ public:
     vector<vector<int>> generateInitialPopulation(int populationSize) const;
     void solveTSPUsingGeneticAlgorithm();
 
-    void orderCrossover();
+    vector<int> orderCrossover(vector<int> firstParent, vector<int> secondParent) const;
 
-    void partiallyMatchedCrossover();
+    void scrambleMutation(vector<int> &pathToMutate) const;
 
-    void scrambleMutation(vector<int> &pathToMutate);
-
-    void inversionMutation(vector<int> &pathToMutate);
+    void inversionMutation(vector<int> &pathToMutate) const;
 };
