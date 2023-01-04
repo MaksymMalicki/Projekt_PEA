@@ -8,8 +8,9 @@ public:
     int verticesNumber = 48;
     vector<vector<int>> routes;
     vector<int> path;
-    double temperature;
-    double coolingRatio = 0.9999999;
+    double mutationRate = 0.8;
+    double crossoverRate = 0.8;
+    int mutationType = 1;
     int timeLimit = 10;
 
     void readDataFromFile(const string& fileName);
@@ -21,7 +22,7 @@ public:
 
     vector<int> orderCrossover(vector<int> firstParent, vector<int> secondParent) const;
 
-    void scrambleMutation(vector<int> &pathToMutate) const;
+    vector<int> scrambleMutation(vector<int> &pathToMutate) const;
 
-    void inversionMutation(vector<int> &pathToMutate) const;
+    vector<int> inversionMutation(vector<int> &pathToMutate) const;
 };

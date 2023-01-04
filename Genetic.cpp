@@ -68,7 +68,7 @@ void Genetic::solveTSPUsingGeneticAlgorithm() {
     auto start = std::chrono::high_resolution_clock::now();
     vector<vector<int>> population = generateInitialPopulation(30);
     vector<vector<int>> newPopulation;
-    vector<vector<int>> filteredPopulation;
+    vector<vector<int>> parentsPopulation;
     int sizeOfTournament = 5;
     while(true){
         for(int i=0; i<population.size(); i++){
@@ -80,14 +80,38 @@ void Genetic::solveTSPUsingGeneticAlgorithm() {
                     bestPathOfTournament = population[randomIndex];
                 }
             }
-            newPopulation.push_back(bestPathOfTournament);
+            parentsPopulation.push_back(bestPathOfTournament);
         }
-        for(int i=0; i<population.size(); i++){
-            population[i].clear();
-            population[i] = newPopulation[i];
-            newPopulation[i].clear();
-        }
+        for(int i=0; i<population.size()-1; i=i+2){
+            random_device rd;
+            mt19937 g(rd());
 
+            uniform_real_distribution<double> crossoverDistribution(0, 1);
+            double crossoverProbability = crossoverDistribution(g);
+            uniform_real_distribution<double> mutationDistribution(0, 1);
+            double mutationProbability = mutationDistribution(g);
+            vector<int> firstParent = parentsPopulation[i];
+            vector<int> secondParent = parentsPopulation[i+1];
+            if(crossoverProbability < crossoverRate){
+                vector<int> firstChild = orderCrossover(firstParent, secondParent);
+                vector<int> secondChild = orderCrossover(secondParent, firstParent);
+                if(mutationProbability < mutationRate){
+                    if(mutationType == 1){
+                        newPopulation.push_back(inversionMutation(firstChild));
+                        newPopulation.push_back(inversionMutation(secondChild));
+                    } else if (mutationType == 2){
+                        newPopulation.push_back(scrambleMutation(firstChild));
+                        newPopulation.push_back(scrambleMutation(secondChild));
+                    }
+                }
+            } else {
+                newPopulation.push_back(firstParent);
+                newPopulation.push_back(secondParent);
+            }
+        }
+        population = newPopulation;
+        newPopulation.clear();
+        parentsPopulation.clear();
         auto finish = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed = finish - start;
         if(elapsed.count() > timeLimit){
@@ -134,14 +158,15 @@ vector<int> Genetic::orderCrossover(vector<int> firstParent, vector<int> secondP
     return child;
 }
 
-void Genetic::inversionMutation(vector<int> &pathToMutate) const{
+vector<int> Genetic::inversionMutation(vector<int> &pathToMutate) const{
     int subsetStartIndex = rand()%(verticesNumber-1);
     int subsetEndIndex = rand()%verticesNumber;
     if(subsetStartIndex>subsetEndIndex) swap(subsetEndIndex, subsetStartIndex);
     reverse( pathToMutate.begin() + subsetStartIndex, pathToMutate.begin() + subsetEndIndex+1);
+    return pathToMutate;
 }
 
-void Genetic::scrambleMutation(vector<int> &pathToMutate) const{
+vector<int> Genetic::scrambleMutation(vector<int> &pathToMutate) const{
     int k = rand()%verticesNumber;
     vector<int> v;
     for(int i=0; i<k; i++){
@@ -155,4 +180,5 @@ void Genetic::scrambleMutation(vector<int> &pathToMutate) const{
         int randomIndexInV = rand()%v.size();
         swap(pathToMutate[v[i]], pathToMutate[v[randomIndexInV]]);
     }
+    return pathToMutate;
 }
