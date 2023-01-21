@@ -1,17 +1,19 @@
 #include "Menu.h"
 #include "DynamicTSP.h"
 #include "BruteForce.h"
+
 #include <iostream>
 using namespace std;
 
 void Menu::displayMenu() {
     int option = 0;
-    while (option > 3 || option < 1) {
+    while (option > 4 || option < 1) {
         cout << "Wybierz opcje z menu ponizej!" << endl;
         cout << "1. Algorytm przeglądu zupelengo" << endl;
         cout << "2. Algorytmy programowania dynamicznego" << endl;
         cout << "3. Algorytmy symulowanego wyzarzania i tabu search"<<endl;
-        cout << "Podaj liczbe 1-3: ";
+        cout << "4. Algorytm genetyczny"<<endl;
+        cout << "Podaj liczbe 1-4: ";
         cin >> option;
     }
     switch (option) {
@@ -23,6 +25,9 @@ void Menu::displayMenu() {
             break;
         case 3:
             displayHeuristicsMenu();
+            break;
+        case 4:
+            displayGeneticAlgorithmMenu();
             break;
         default:
             break;
@@ -156,4 +161,56 @@ void Menu::displayHeuristicsMenu() {
             break;
     }
 }
+
+void Menu::displayGeneticAlgorithmMenu() {
+    int option = 0;
+    while (option > 3 || option < 1) {
+        cout << "Algorytm genetyczny" << endl;
+        cout << "Wybierz opcje z menu ponizej!" << endl;
+        cout << "1. Wczytaj graf z pliku" << endl;
+        cout << "2. Podaj kryterium stopu" << endl;
+        cout << "3. Wlacz algorytm genetyczny" << endl;
+        cout << "Podaj liczbe 1-3: ";
+        cin >> option;
+    }
+    string dir;
+    double crossRate = 0;
+    double mutationRate = 0;
+    int timeLimit = 0;
+    int populationSize = 0;
+    int mutationType = 0;
+    switch (option) {
+        case 1:
+            cout << "Podaj sciezke do pliku z danymi:";
+            cin >> dir;
+            ga.readDataFromFile("test-data/" + dir);
+            displayGeneticAlgorithmMenu();
+            break;
+        case 2:
+            cout << "Podaj wartosc kryterium stopu (w sekundach) ";
+            cin >> timeLimit;
+            ga.timeLimit = timeLimit;
+            displayGeneticAlgorithmMenu();
+            break;
+        case 3:
+            cout << "Podaj wspolczynnik crossowania ";
+            cin >> crossRate;
+            ga.crossoverRate = crossRate;
+            cout << "Podaj wspolczynnik mutacji";
+            cin >> mutationRate;
+            ga.mutationRate = mutationRate;
+            cout << "Podaj rozmiar populacji";
+            cin >> populationSize;
+            ga.populationSize = populationSize;
+            cout << "Podaj typ mutacji (1-inverse, 2-swap)";
+            cin >> mutationType;
+            ga.mutationType = mutationType;
+            ga.solveTSPUsingGeneticAlgorithm();
+            displayGeneticAlgorithmMenu();
+            break;
+        default:
+            break;
+    }
+}
+
 

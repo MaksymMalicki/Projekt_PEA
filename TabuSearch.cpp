@@ -2,6 +2,7 @@
 #include <fstream>
 #include <algorithm>
 #include <random>
+#include <typeinfo>
 
 using namespace std;
 
@@ -64,9 +65,9 @@ void TabuSearch::solveTSPUsingTabuSearch() {
     int bestCost = currentCost;
     vector<int> bestPath = currentPath;
     auto start = std::chrono::high_resolution_clock::now();
-    int iterations = 10*verticesNumber;
-    int punishment = verticesNumber;
-    double when = 0;
+    int iterations = verticesNumber;
+    int punishment = 10*verticesNumber;
+    vector<int> measureTimes;
     while(true){
         currentPath = generateRandomPath();
         for(int i=0; i<iterations; i++){
@@ -91,9 +92,6 @@ void TabuSearch::solveTSPUsingTabuSearch() {
                 bestPath = currentPath;
                 auto bestTime = std::chrono::high_resolution_clock::now();
                 std::chrono::duration<double> elapsed = bestTime - start;
-                when = elapsed.count();
-
-
             }
             for(int k=0; k<verticesNumber; k++){
                 for(int l=0; l<verticesNumber; l++){
@@ -107,8 +105,6 @@ void TabuSearch::solveTSPUsingTabuSearch() {
             break;
         }
     }
-    cout<<"time: "<<when<<endl;
-    cout<<endl<<endl;
     cout<<"Best cost: "<<bestCost<<endl;
     for(int i: bestPath){
         cout<<i<<" ";

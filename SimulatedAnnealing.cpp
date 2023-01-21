@@ -67,7 +67,7 @@ void SimulatedAnnealing::solveTSPUsingSimulatedAnnealing() {
     int optimalCost= getPathCost(path);
     auto const seed = 123456789;
     std::mt19937 urbg {seed};
-    double when = 0;
+    vector<int> measureTimes;
     while(true){
         vector<int>newPath = swapElementsInPath(verticesNumber, path);
         int newCost = getPathCost(newPath);
@@ -76,7 +76,6 @@ void SimulatedAnnealing::solveTSPUsingSimulatedAnnealing() {
             optimalCost = newCost;
             auto bestTime = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> elapsed = bestTime - start;
-            when = elapsed.count();
 
         } else {
             double probability = exp(-abs(optimalCost-newCost)/temperature);
@@ -89,11 +88,15 @@ void SimulatedAnnealing::solveTSPUsingSimulatedAnnealing() {
         temperature *= coolingRatio;
         auto finish = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed = finish - start;
+        int timeNow = int(elapsed.count());
+        if(std::find(measureTimes.begin(), measureTimes.end(), timeNow) == measureTimes.end() && timeNow%20==0){
+            measureTimes.push_back(timeNow);
+            cout<<optimalCost<<endl;
+        }
         if(elapsed.count() > timeLimit){
             break;
         }
     }
-    cout<<"Time: "<<when<<endl;
     cout<<"path: "<<endl;
     for(int i : path){
         cout<<i<<" ";
